@@ -29,7 +29,7 @@ def check_bound(obj_rct):
     return yoko, tate
 
 
-def Draw_rect(screen:pg.Surface):
+def Draw_rect(screen:pg.Surface): #３，ゲームオーバー画面
     gm_img = pg.Surface((WIDTH, HEIGHT))
     pg.draw.rect(gm_img, (0, 0, 0), pg.Rect(0, 0 , WIDTH, HEIGHT))
     gm_img.set_alpha(128)

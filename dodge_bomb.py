@@ -2,6 +2,7 @@ import os
 import random
 import sys
 import pygame as pg
+import time
 
 
 WIDTH, HEIGHT = 1000, 600 
@@ -28,6 +29,29 @@ def check_bound(obj_rct):
     return yoko, tate
 
 
+def Draw_rect(screen:pg.Surface):
+    gm_img = pg.Surface((WIDTH, HEIGHT))
+    pg.draw.rect(gm_img, (0, 0, 0), pg.Rect(0, 0 , WIDTH, HEIGHT))
+    gm_img.set_alpha(128)
+    screen.blit(gm_img, [0, 0])
+    
+    fonto = pg.font.Font(None, 80)
+    txt = fonto.render("Game Over", True, (255, 255, 255))
+    txt_rect = txt.get_rect(center=(WIDTH/2, HEIGHT/2))
+    screen.blit(txt, txt_rect)
+    
+    kt_img = pg.transform.rotozoom(pg.image.load("fig/8.png"), 0, 1.5)
+    kt_rct = kt_img.get_rect()
+    kt_rct.center = WIDTH/2, HEIGHT/3
+    screen.blit(kt_img, kt_rct)
+    pg.display.update()
+    kt_rct.center = WIDTH/2, HEIGHT*2/3
+    screen.blit(kt_img, kt_rct)
+    
+    pg.display.update()
+    time.sleep(5)
+
+
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
@@ -52,8 +76,8 @@ def main():
                 return
         if kk_rct.colliderect(bd_rct): #こうかとんと爆弾がぶつかったら
             print("Game Over")
+            Draw_rect(screen)
             return
-        
         screen.blit(bg_img, [0, 0]) 
         
         #こうかとん移動
